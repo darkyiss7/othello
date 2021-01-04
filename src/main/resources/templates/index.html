@@ -1,11 +1,13 @@
 <html th:replace="~{layout :: layout(~{::title}, ~{::content})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:fragment="title">Othello</title>
+    <title th:fragment="title">Welcome to Tic Tac Toe</title>
 </head>
 <body>
-    <div th:fragment="content">
-        <h1>Nique zebi</h1>
-    </div>
+<div th:fragment="content">
+    <h1>Welcome to Tic Tac Toe</h1>
 
+    <p>This is a really great game !</p>
+    <a class="btn btn-primary" href="#" th:href="@{/create}">Start a new game now</a>
+</div>
 </body>
 </html>

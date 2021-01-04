@@ -1,13 +1,13 @@
-/*package fr.yncrea.cir3.Othello.service;
+package fr.yncrea.cir3.othello.service;
 
 
-import fr.yncrea.cir3.Othello.repository.UserRepository;
+import fr.yncrea.cir3.othello.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-*/ /*
+
 @Service
 public class DbUserDetailsService implements UserDetailsService {
     @Autowired
@@ -24,4 +24,3 @@ public class DbUserDetailsService implements UserDetailsService {
     }
 
 }
-*/

@@ -1,10 +1,10 @@
-/*package fr.yncrea.cir3.Othello.domain;
+package fr.yncrea.cir3.othello.domain;
 
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-*/ /*
+
 import javax.persistence.*;
 
 @Getter
@@ -23,4 +23,3 @@ public class Authority implements GrantedAuthority {
         return null;
     }
 }
-*/

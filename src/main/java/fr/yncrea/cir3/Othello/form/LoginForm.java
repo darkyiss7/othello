@@ -1,4 +1,4 @@
-package fr.yncrea.cir3.Othello.form;
+package fr.yncrea.cir3.othello.form;
 
 import lombok.Getter;
 import lombok.Setter;
