@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, content)">
+<head>
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Remix Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <!-- page title, will be replaced by given fragment -->
+    <title th:replace="${title}">Application Title</title>
+</head>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Circle_-_black_simple.svg/500px-Circle_-_black_simple.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Othello
+        </a>
+        <a class="navbar-brand" href="/login">
+            Connexion
+        </a>
+    </nav>
+</header>
+<body>
+
+<!-- our site will use bootstrap container layout -->
+    <div class="jumbotron" th:replace="${content}">
+        <!-- content to templace -->
+        <p>Layout page, content gets here !</p>
+    </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
