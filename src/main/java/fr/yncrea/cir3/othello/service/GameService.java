@@ -142,7 +142,7 @@ public class GameService {
 
 
         //DE HAUT EN BAS en partant des blancs
-        boolean validate=false;
+        boolean validate;
         int haut = row - 1;
 
 
@@ -150,16 +150,22 @@ public class GameService {
 
                 if (game.getBoard()[haut][col] == CellStatus.X ) {
 
-                    while (game.getBoard()[haut][col] == CellStatus.X && validate!=true) {
-                        if (game.getBoard()[haut][col] == CellStatus.O){
-                            validate=true;
-                        }
+                    while (game.getBoard()[haut][col] == CellStatus.X ) {
+
                         haut--;
 
 
                     }
+                    if (game.getBoard()[haut][col] == CellStatus.O){
+                        validate=true;
+
+
+                    }
+                    else {
+                        throw new InvalidMoveException("Le coup n'est pas valide");
+                    }
                     haut = row - 1;
-                    validate=true;
+
                     while (validate==true) {
 
                         while (game.getBoard()[haut][col] == CellStatus.X) {
@@ -172,9 +178,6 @@ public class GameService {
                         setCell(game,row,col,CellStatus.O);
                         validate=false;
                     }
-                } else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-
                 }
 
             }
@@ -182,17 +185,21 @@ public class GameService {
             if (game.getCurrentPlayer() == CellStatus.X){
                 if (game.getBoard()[haut][col] == CellStatus.O) {
 
-                    while (game.getBoard()[haut][col] == CellStatus.O && validate!=true) {
-                        if (game.getBoard()[haut][col] == CellStatus.X){
-                            validate=true;
+                    while (game.getBoard()[haut][col] == CellStatus.O) {
 
-                        }
 
                         haut--;
 
                     }
+                    if (game.getBoard()[haut][col] == CellStatus.X){
+                        validate=true;
+
+                    }
+                    else {
+                        throw new InvalidMoveException("Le coup n'est pas valide");
+                    }
                     haut = row - 1;
-                    validate=true;
+
                     while (validate==true) {
 
                         while (game.getBoard()[haut][col] == CellStatus.O) {
@@ -205,12 +212,528 @@ public class GameService {
                         setCell(game,row,col,CellStatus.X);
                         validate=false;
                     }
-                } else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-
                 }
             }
 
+        //de bas en haut en partant des blancs
+        int bas=row+1;
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[bas][col] == CellStatus.X ) {
+
+                while (game.getBoard()[bas][col] == CellStatus.X ) {
+
+                    bas++;
+
+
+                }
+                if (game.getBoard()[bas][col] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                bas = row + 1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][col] == CellStatus.X) {
+
+                        setCell(game,bas,col,CellStatus.O);
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DE BAS EN HAUT en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[bas][col] == CellStatus.O) {
+
+                while (game.getBoard()[bas][col] == CellStatus.O) {
+
+
+                    bas++;
+
+                }
+                if (game.getBoard()[bas][col] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                bas = row + 1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][col] == CellStatus.O) {
+
+                        setCell(game,bas,col,CellStatus.X);
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+        int droite=col-1;
+        //DE GAUCHE A DROITE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[row][droite] == CellStatus.X ) {
+
+                while (game.getBoard()[row][droite] == CellStatus.X ) {
+
+                    droite--;
+
+
+                }
+                if (game.getBoard()[row][droite] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col -1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[row][droite] == CellStatus.X) {
+
+                        setCell(game,row,droite,CellStatus.O);
+                        droite--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DE GAUCHE A DROITE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[row][droite] == CellStatus.O) {
+
+                while (game.getBoard()[row][droite] == CellStatus.O) {
+
+
+                    droite--;
+
+                }
+                if (game.getBoard()[row][droite] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col -1 ;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[row][droite] == CellStatus.O) {
+
+                        setCell(game,row,droite,CellStatus.X);
+                        droite--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+        int gauche=col+1;
+        //DE DROITE A GAUCHE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[row][gauche] == CellStatus.X ) {
+
+                while (game.getBoard()[row][gauche] == CellStatus.X ) {
+
+                    gauche++;
+
+
+                }
+                if (game.getBoard()[row][gauche] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[row][gauche] == CellStatus.X) {
+
+                        setCell(game,row,gauche,CellStatus.O);
+                        gauche++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DE DROITE A GAUCHE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[row][gauche] == CellStatus.O) {
+
+                while (game.getBoard()[row][gauche] == CellStatus.O) {
+
+
+                    gauche++;
+
+                }
+                if (game.getBoard()[row][gauche] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1 ;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[row][gauche] == CellStatus.O) {
+
+                        setCell(game,row,gauche,CellStatus.X);
+                        gauche++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+
+
+        //DIAGO HAUT GAUCHE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[haut][gauche] == CellStatus.X ) {
+
+                while (game.getBoard()[haut][gauche] == CellStatus.X ) {
+
+                    gauche++;
+                    haut--;
+
+
+                }
+                if (game.getBoard()[haut][gauche] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1;
+                haut =row-1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[haut][gauche] == CellStatus.X) {
+
+                        setCell(game,haut,gauche,CellStatus.O);
+                        gauche++;
+                        haut--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DIAGO HAUT GAUCHE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[haut][gauche] == CellStatus.O) {
+
+                while (game.getBoard()[haut][gauche] == CellStatus.O) {
+
+
+                    gauche++;
+                    haut--;
+
+                }
+                if (game.getBoard()[haut][gauche] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1 ;
+                haut= row-1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[haut][gauche] == CellStatus.O) {
+
+                        setCell(game,haut,gauche,CellStatus.X);
+                        gauche++;
+                        haut--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+        //DIAGO BAS GAUCHE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[bas][gauche] == CellStatus.X ) {
+
+                while (game.getBoard()[bas][gauche] == CellStatus.X ) {
+
+                    gauche++;
+                    bas++;
+
+
+                }
+                if (game.getBoard()[bas][gauche] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1;
+                bas =row+1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][gauche] == CellStatus.X) {
+
+                        setCell(game,bas,gauche,CellStatus.O);
+                        gauche++;
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DIAGO BAS GAUCHE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[bas][gauche] == CellStatus.O) {
+
+                while (game.getBoard()[bas][gauche] == CellStatus.O) {
+
+
+                    gauche++;
+                    bas++;
+
+                }
+                if (game.getBoard()[bas][gauche] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                gauche = col +1 ;
+                bas= row+1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][gauche] == CellStatus.O) {
+
+                        setCell(game,bas,gauche,CellStatus.X);
+                        gauche++;
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+        //DIAGO HAUT DROITE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[haut][droite] == CellStatus.X ) {
+
+                while (game.getBoard()[haut][droite] == CellStatus.X ) {
+
+                    droite--;
+                    haut--;
+
+
+                }
+                if (game.getBoard()[haut][droite] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col -1;
+                haut =row-1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[haut][droite] == CellStatus.X) {
+
+                        setCell(game,haut,droite,CellStatus.O);
+                        droite--;
+                        haut--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DIAGO HAUT DROITE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[haut][droite] == CellStatus.O) {
+
+                while (game.getBoard()[haut][droite] == CellStatus.O) {
+
+
+                    droite--;
+                    haut--;
+
+                }
+                if (game.getBoard()[haut][droite] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col -1 ;
+                haut= row-1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[haut][droite] == CellStatus.O) {
+
+                        setCell(game,haut,droite,CellStatus.X);
+                        droite--;
+                        haut--;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+
+        //DIAGO BAS DROITE partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
+
+            if (game.getBoard()[bas][droite] == CellStatus.X ) {
+
+                while (game.getBoard()[bas][droite] == CellStatus.X ) {
+
+                    droite--;
+                    bas++;
+
+
+                }
+                if (game.getBoard()[bas][droite] == CellStatus.O){
+                    validate=true;
+
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col -1;
+                bas =row+1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][droite] == CellStatus.X) {
+
+                        setCell(game,bas,droite,CellStatus.O);
+                        droite--;
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.O);
+                    validate=false;
+                }
+            }
+
+        }
+        //DIAGO BAS DROITE en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
+            if (game.getBoard()[bas][droite] == CellStatus.O) {
+
+                while (game.getBoard()[bas][droite] == CellStatus.O) {
+
+
+                    droite--;
+                    bas++;
+
+                }
+                if (game.getBoard()[bas][droite] == CellStatus.X){
+                    validate=true;
+
+                }
+                else {
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
+                droite = col +1 ;
+                bas= row+1;
+
+                while (validate==true) {
+
+                    while (game.getBoard()[bas][droite] == CellStatus.O) {
+
+                        setCell(game,bas,droite,CellStatus.X);
+                        droite--;
+                        bas++;
+
+                    }
+
+                    setCell(game,row,col,CellStatus.X);
+                    validate=false;
+                }
+            }
+        }
+        
 
     }
     private CellStatus checkWinnerUsingVector(Game game) {
