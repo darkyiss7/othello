@@ -55,7 +55,15 @@ public class GameService {
         }
 
         // ok, so this is a valid move, update board
-        coupValid(game,row,column);
+        coupValid(game,row,column,game.getCurrentPlayer(),1,0);
+        coupValid(game,row,column,game.getCurrentPlayer(),0,1);
+        coupValid(game,row,column,game.getCurrentPlayer(),1,1);
+        coupValid(game,row,column,game.getCurrentPlayer(),0,-1);
+        coupValid(game,row,column,game.getCurrentPlayer(),1,-1);
+        coupValid(game,row,column,game.getCurrentPlayer(),-1,1);
+        coupValid(game,row,column,game.getCurrentPlayer(),-1,-1);
+        coupValid(game,row,column,game.getCurrentPlayer(),-1,0);
+
 
 
         // check if there is a winner
@@ -108,7 +116,7 @@ public class GameService {
         int column = fromColumn;
         CellStatus winner = null;
 
-        while (row >= 0 && row < 8 && column >= 0 && column < 8) {
+        while (row >= 0 && row < SIZESQUARE && column >= 0 && column < SIZESQUARE) {
             CellStatus status = getCell(game, row, column);
 
             if (winner == null) {
@@ -131,11 +139,48 @@ public class GameService {
 
         return winner;
     }
-    private void coupValid(Game game,int row,int col){
+    private void coupValid(Game game,int row,int col,CellStatus statusJoueur,int vx, int vy){
 
         boolean validate = false;
 
+        //DIAGO BAS DROITE en partant des noirs
 
+        int ligne=row+vx;
+        int colonne=col+vy;
+        if (game.getBoard()[ligne][colonne] != statusJoueur) {
+
+                while (game.getBoard()[ligne][colonne] != statusJoueur && ligne<SIZESQUARE && colonne <SIZESQUARE) {
+
+
+                    ligne+=vx;
+                    colonne+=vy;
+
+                }
+            if (game.getBoard()[ligne][colonne] == statusJoueur){
+                validate=true;
+
+            }
+            ligne=row+vx;
+            colonne=col+vy;
+
+            if (validate==false){
+                throw new InvalidMoveException("Le coup n'est pas valide");
+            }
+
+
+            while (game.getBoard()[ligne][colonne] != statusJoueur && ligne<SIZESQUARE && colonne <SIZESQUARE) {
+
+                setCell(game,ligne,colonne,statusJoueur);
+                ligne+=vx;
+                colonne+=vy;
+            }
+
+            setCell(game,row,col,statusJoueur);
+
+
+        }
+
+        /*
         int haut = row - 1;
         //DE HAUT EN BAS en partant des blancs
         if (game.getCurrentPlayer() == CellStatus.O) {
@@ -664,44 +709,10 @@ public class GameService {
             }
 
         }
-        //DIAGO BAS DROITE en partant des noirs
-        if (game.getCurrentPlayer() == CellStatus.X){
-            if (game.getBoard()[bas][droite] == CellStatus.O) {
-
-                while (game.getBoard()[bas][droite] == CellStatus.O) {
+        */
 
 
-                    droite--;
-                    bas++;
 
-                }
-                if (game.getBoard()[bas][droite] == CellStatus.X){
-                    validate=true;
-
-                }
-
-                droite = col +1 ;
-                bas= row+1;
-                if (validate==false){
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
-
-
-                while (game.getBoard()[bas][droite] == CellStatus.O) {
-
-                        setCell(game,bas,droite,CellStatus.X);
-                        droite--;
-                        bas++;
-
-                }
-
-                setCell(game,row,col,CellStatus.X);
-
-
-            }
-        }
-
-        
 
     }
     private CellStatus checkWinnerUsingVector(Game game) {
@@ -772,6 +783,7 @@ public class GameService {
     private void alternatePlayer(Game game) {
 
         if (game.getCurrentPlayer() == CellStatus.O) {
+
             game.setCurrentPlayer(CellStatus.X);
 
         } else {

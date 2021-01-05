@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class Game {
+    private static final int SIZESQUARE = 8;
     @Id
     @GeneratedValue
     private Long id;
@@ -26,6 +27,6 @@ public class Game {
     private CellStatus[][] board;
 
     public Game() {
-        board = new CellStatus[8][8];
+        board = new CellStatus[SIZESQUARE][SIZESQUARE];
     }
 }
