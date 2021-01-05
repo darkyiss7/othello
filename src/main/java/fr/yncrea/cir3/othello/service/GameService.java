@@ -160,7 +160,7 @@ public class GameService {
                     }
                     haut = row - 1;
                     validate=true;
-                    if (validate==true) {
+                    while (validate==true) {
 
                         while (game.getBoard()[haut][col] == CellStatus.X) {
 
@@ -193,7 +193,7 @@ public class GameService {
                     }
                     haut = row - 1;
                     validate=true;
-                    if (validate==true) {
+                    while (validate==true) {
 
                         while (game.getBoard()[haut][col] == CellStatus.O) {
 
