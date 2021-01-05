@@ -42,14 +42,7 @@ public class GameService {
     public Game play(Game game, int row, int column) {
         // check if row is valid
 
-        if (row < 0 || row > SIZESQUARE) {
-            throw new InvalidMoveException("Row is not valid");
-        }
 
-        // check if column is valid
-        if (column < 0 || column > SIZESQUARE) {
-            throw new InvalidMoveException("Column is not valid");
-        }
 
         // check if the game is still started
         if (game.getStatus() != GameStatus.STARTED) {
@@ -141,12 +134,13 @@ public class GameService {
     private void coupValid(Game game,int row,int col){
 
 
-        //DE HAUT EN BAS en partant des blancs
-        boolean validate;
+
+        boolean validate = false;
+
+
         int haut = row - 1;
-
-
-            if (game.getCurrentPlayer() == CellStatus.O) {
+        //DE HAUT EN BAS en partant des blancs
+        if (game.getCurrentPlayer() == CellStatus.O) {
 
                 if (game.getBoard()[haut][col] == CellStatus.X ) {
 
@@ -161,9 +155,7 @@ public class GameService {
 
 
                     }
-                    else {
-                        throw new InvalidMoveException("Le coup n'est pas valide");
-                    }
+
                     haut = row - 1;
 
                     while (validate==true) {
@@ -181,8 +173,8 @@ public class GameService {
                 }
 
             }
-            //DE HAUT EN BAS en partant des noirs
-            if (game.getCurrentPlayer() == CellStatus.X){
+        //DE HAUT EN BAS en partant des noirs
+        if (game.getCurrentPlayer() == CellStatus.X){
                 if (game.getBoard()[haut][col] == CellStatus.O) {
 
                     while (game.getBoard()[haut][col] == CellStatus.O) {
@@ -195,9 +187,7 @@ public class GameService {
                         validate=true;
 
                     }
-                    else {
-                        throw new InvalidMoveException("Le coup n'est pas valide");
-                    }
+
                     haut = row - 1;
 
                     while (validate==true) {
@@ -232,9 +222,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 bas = row + 1;
 
                 while (validate==true) {
@@ -266,9 +254,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 bas = row + 1;
 
                 while (validate==true) {
@@ -303,9 +289,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col -1;
 
                 while (validate==true) {
@@ -337,9 +321,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col -1 ;
 
                 while (validate==true) {
@@ -374,9 +356,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1;
 
                 while (validate==true) {
@@ -408,9 +388,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1 ;
 
                 while (validate==true) {
@@ -429,7 +407,8 @@ public class GameService {
         }
 
 
-
+        gauche=col+1;
+        haut=row-1;
         //DIAGO HAUT GAUCHE partant des blancs
         if (game.getCurrentPlayer() == CellStatus.O) {
 
@@ -447,9 +426,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1;
                 haut =row-1;
 
@@ -484,9 +461,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1 ;
                 haut= row-1;
 
@@ -505,7 +480,8 @@ public class GameService {
                 }
             }
         }
-
+        gauche=col+1;
+        bas=row+1;
         //DIAGO BAS GAUCHE partant des blancs
         if (game.getCurrentPlayer() == CellStatus.O) {
 
@@ -523,9 +499,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1;
                 bas =row+1;
 
@@ -545,6 +519,7 @@ public class GameService {
             }
 
         }
+
         //DIAGO BAS GAUCHE en partant des noirs
         if (game.getCurrentPlayer() == CellStatus.X){
             if (game.getBoard()[bas][gauche] == CellStatus.O) {
@@ -560,9 +535,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 gauche = col +1 ;
                 bas= row+1;
 
@@ -581,7 +554,8 @@ public class GameService {
                 }
             }
         }
-
+        droite=col-1;
+        haut=row-1;
         //DIAGO HAUT DROITE partant des blancs
         if (game.getCurrentPlayer() == CellStatus.O) {
 
@@ -599,9 +573,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col -1;
                 haut =row-1;
 
@@ -636,9 +608,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col -1 ;
                 haut= row-1;
 
@@ -657,7 +627,8 @@ public class GameService {
                 }
             }
         }
-
+        droite=col-1;
+        bas=row+1;
         //DIAGO BAS DROITE partant des blancs
         if (game.getCurrentPlayer() == CellStatus.O) {
 
@@ -675,9 +646,7 @@ public class GameService {
 
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col -1;
                 bas =row+1;
 
@@ -712,9 +681,7 @@ public class GameService {
                     validate=true;
 
                 }
-                else {
-                    throw new InvalidMoveException("Le coup n'est pas valide");
-                }
+
                 droite = col +1 ;
                 bas= row+1;
 
@@ -732,6 +699,9 @@ public class GameService {
                     validate=false;
                 }
             }
+        }
+        else {
+            throw new InvalidMoveException("Le coup n'est pas valide");
         }
         
 
