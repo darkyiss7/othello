@@ -133,8 +133,6 @@ public class GameService {
     }
     private void coupValid(Game game,int row,int col){
 
-
-
         boolean validate = false;
 
 
@@ -684,25 +682,25 @@ public class GameService {
 
                 droite = col +1 ;
                 bas= row+1;
+                if (validate==false){
+                    throw new InvalidMoveException("Le coup n'est pas valide");
+                }
 
-                while (validate==true) {
 
-                    while (game.getBoard()[bas][droite] == CellStatus.O) {
+                while (game.getBoard()[bas][droite] == CellStatus.O) {
 
                         setCell(game,bas,droite,CellStatus.X);
                         droite--;
                         bas++;
 
-                    }
-
-                    setCell(game,row,col,CellStatus.X);
-                    validate=false;
                 }
+
+                setCell(game,row,col,CellStatus.X);
+
+
             }
         }
-        else {
-            throw new InvalidMoveException("Le coup n'est pas valide");
-        }
+
         
 
     }
